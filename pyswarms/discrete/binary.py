@@ -213,6 +213,7 @@ class BinaryPSO(DiscreteSwarmOptimizer):
                 mean_neighbor_cost=np.mean(self.swarm.best_cost),
                 position=self.swarm.position,
                 velocity=self.swarm.velocity,
+                cost=self.swarm.current_cost,
             )
             self._populate_history(hist)
             # Verify stop criteria based on the relative acceptable cost ftol

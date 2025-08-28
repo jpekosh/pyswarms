@@ -261,6 +261,7 @@ class GeneralOptimizerPSO(SwarmOptimizer):
                 mean_neighbor_cost=self.swarm.best_cost,
                 position=self.swarm.position,
                 velocity=self.swarm.velocity,
+                cost=self.swarm.current_cost,
             )
             self._populate_history(hist)
             # Verify stop criteria based on the relative acceptable cost ftol

@@ -118,6 +118,7 @@ class SwarmOptimizer(abc.ABC):
                 "mean_neighbor_cost",
                 "position",
                 "velocity",
+                "cost",
             ],
         )
         # Initialize resettable attributes
@@ -142,6 +143,7 @@ class SwarmOptimizer(abc.ABC):
         self.mean_neighbor_history.append(hist.mean_neighbor_cost)
         self.pos_history.append(hist.position)
         self.velocity_history.append(hist.velocity)
+        self.cost.append(hist.cost)
 
     @abc.abstractmethod
     def optimize(self, objective_func, iters, n_processes=None, **kwargs):
@@ -199,6 +201,7 @@ class SwarmOptimizer(abc.ABC):
         self.mean_neighbor_history = []
         self.pos_history = []
         self.velocity_history = []
+        self.cost = []
 
         # Initialize the swarm
         self.swarm = create_swarm(

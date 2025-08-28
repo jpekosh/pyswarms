@@ -148,6 +148,7 @@ def plot_contour(
     mesher=None,
     animator=None,
     n_processes=None,
+        cb_label='Objective Function Value',
     **kwargs
 ):
     """Draw a 2D contour map for particle trajectories
@@ -219,15 +220,17 @@ def plot_contour(
         # Make a contour map if possible
         if mesher is not None:
             (xx, yy, zz) = _mesh(mesher, n_processes=n_processes)
-            ax.contour(xx, yy, zz, levels=mesher.levels)
+            cont = ax.contourf(xx, yy, zz, levels=mesher.levels, zlevel=-999)
+            cbar = plt.colorbar(cont, ax=ax)
+            cbar.set_label(cb_label)
 
         # Mark global best if possible
         if mark is not None:
             ax.scatter(mark[0], mark[1], color="red", marker="x")
 
+
         # Put scatter skeleton
         plot = ax.scatter(x=[], y=[], c="black", alpha=0.6, **kwargs)
-
         # Do animation
         anim = animation.FuncAnimation(
             fig=fig,
@@ -254,6 +257,7 @@ def plot_surface(
     animator=None,
     mark=None,
     n_processes=None,
+    cb_label='Objective Function Value',
     **kwargs
 ):
     """Plot a swarm's trajectory in 3D
@@ -365,6 +369,8 @@ def plot_surface(
             ax.plot_surface(
                 xx, yy, zz, cmap=designer.colormap, alpha=mesher.alpha
             )
+            cbar = plt.colorbar(cont, ax=ax)
+            cbar.set_label(cb_label)
 
         # Mark global best if possible
         if mark is not None:
